@@ -1,9 +1,10 @@
 package com.license.backend.service;
 
 import com.license.backend.domain.dto.VisualizationCreateDto;
+import com.license.backend.domain.dto.VisualizationViewDto;
 
 public interface VisualizationService {
 
-    void create(VisualizationCreateDto createDto);
+    VisualizationViewDto create(VisualizationCreateDto createDto);
 
 }

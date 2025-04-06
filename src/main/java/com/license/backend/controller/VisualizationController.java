@@ -1,6 +1,7 @@
 package com.license.backend.controller;
 
 import com.license.backend.domain.dto.VisualizationCreateDto;
+import com.license.backend.domain.dto.VisualizationViewDto;
 import com.license.backend.service.VisualizationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +18,8 @@ public class VisualizationController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @SecurityRequirement(name = "bearerAuth")
-    public void createVisualization(@RequestBody VisualizationCreateDto visualizationCreateDto) {
-        service.create(visualizationCreateDto);
+    public VisualizationViewDto createVisualization(@RequestBody VisualizationCreateDto visualizationCreateDto) {
+        return service.create(visualizationCreateDto);
     }
 
 }

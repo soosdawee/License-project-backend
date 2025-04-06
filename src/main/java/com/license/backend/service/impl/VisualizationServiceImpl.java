@@ -1,6 +1,7 @@
 package com.license.backend.service.impl;
 
 import com.license.backend.domain.dto.VisualizationCreateDto;
+import com.license.backend.domain.dto.VisualizationViewDto;
 import com.license.backend.domain.mapper.VisualizationMapper;
 import com.license.backend.domain.model.Visualization;
 import com.license.backend.repository.VisualizationRepository;
@@ -21,9 +22,10 @@ public class VisualizationServiceImpl implements VisualizationService {
     private final VisualizationMapper mapper;
 
     @Override
-    public void create(VisualizationCreateDto createDto) {
+    public VisualizationViewDto create(VisualizationCreateDto createDto) {
         Visualization visualization = mapper.toEntity(createDto);
-        repository.save(visualization);
+        Visualization saved = repository.save(visualization);
+        return new VisualizationViewDto(saved.getVisualizationId());
     }
 
 }
