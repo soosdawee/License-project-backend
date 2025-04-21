@@ -40,4 +40,18 @@ public class TokenProvider {
     private Instant genAccessExpirationDate() {
         return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
     }
+
+    public Integer decodeId(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256(JWT_SECRET);
+            String subject = JWT.require(algorithm)
+                    .build()
+                    .verify(token.substring(7))
+                    .getSubject();
+            return Integer.parseInt(subject);
+        } catch (JWTVerificationException | NumberFormatException e) {
+            throw new RuntimeException("Invalid token or ID format", e);
+        }
+    }
+
 }

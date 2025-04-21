@@ -4,6 +4,7 @@ import com.license.backend.domain.constant.Roles;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
@@ -38,6 +39,7 @@ public class AuthConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/user").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/visualization").hasAuthority(Roles.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.GET, "/visualization/all").hasAuthority(Roles.ADMIN.getAuthority())
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

@@ -1,8 +1,6 @@
 package com.license.backend.domain.mapper;
 
-import com.license.backend.domain.dto.BarchartCreateDto;
-import com.license.backend.domain.dto.PiechartCreateDto;
-import com.license.backend.domain.dto.VisualizationCreateDto;
+import com.license.backend.domain.dto.*;
 import com.license.backend.domain.model.BarchartVisualization;
 import com.license.backend.domain.model.PiechartVisualization;
 import com.license.backend.domain.model.Visualization;
@@ -16,5 +14,9 @@ public interface VisualizationMapper {
             @SubclassMapping(source = PiechartCreateDto.class, target = PiechartVisualization.class)
     })
     Visualization toEntity(VisualizationCreateDto visualizationCreateDto);
+
+    VisualizationViewAllDto toViewAllDto(Visualization visualization);
+
+    VisualizationViewDto toViewDto(Visualization visualization);
 
 }

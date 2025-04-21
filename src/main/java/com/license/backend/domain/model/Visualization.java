@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "visualizations")
 @Getter
@@ -31,5 +34,16 @@ public abstract class Visualization {
 
     @Column
     private String backgroundColor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @OneToMany(
+            mappedBy = "visualization",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<TableData> tableDatas = new ArrayList<>();
 
 }

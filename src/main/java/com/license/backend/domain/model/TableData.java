@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
 
 import java.util.List;
 
@@ -29,5 +27,9 @@ public class TableData {
     @Convert(converter = ListToJsonConverter.class)
     @Column(columnDefinition = "TEXT")
     private List<List<String>> data;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "visualization_id")
+    private Visualization visualization;
 
 }

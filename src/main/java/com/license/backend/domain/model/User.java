@@ -1,5 +1,6 @@
 package com.license.backend.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.license.backend.domain.constant.Roles;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -10,6 +11,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -46,6 +48,14 @@ public class User implements UserDetails {
 
     @Column
     private Boolean isActive;
+
+    @OneToMany(
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonIgnore
+    private List<Visualization> visualizations = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

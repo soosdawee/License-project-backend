@@ -2,9 +2,12 @@ package com.license.backend.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.license.backend.domain.model.TableData;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -24,5 +27,7 @@ public abstract class VisualizationCreateDto {
     private String article;
 
     private String backgroundColor;
+
+    private List<TableDataCreateDto> tableDatas;
 
 }
