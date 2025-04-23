@@ -40,6 +40,8 @@ public class AuthConfig {
                         .requestMatchers(HttpMethod.GET, "/user").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/visualization").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.GET, "/visualization/all").hasAuthority(Roles.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.POST, "/visualization_model").hasAuthority(Roles.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.GET, "/visualization_model/*").hasAuthority(Roles.ADMIN.getAuthority())
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

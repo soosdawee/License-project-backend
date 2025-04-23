@@ -46,4 +46,8 @@ public abstract class Visualization {
     )
     private List<TableData> tableDatas = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "visualization_model_id")
+    private VisualizationModel visualizationModel;
+
 }

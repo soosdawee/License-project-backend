@@ -1,7 +1,7 @@
 package com.license.backend.domain.mapper;
 
-import com.license.backend.domain.dto.TableDataCreateDto;
-import com.license.backend.domain.dto.TableDataViewDto;
+import com.license.backend.domain.dto.table_data.TableDataCreateDto;
+import com.license.backend.domain.dto.table_data.TableDataViewDto;
 import com.license.backend.domain.model.TableData;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;

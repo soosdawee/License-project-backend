@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface VisualizationRepository extends JpaRepository<Visualization, Integer> {
 
-    @EntityGraph(attributePaths = {"user"})
+    @EntityGraph(attributePaths = {"user", "visualizationModel"})
     List<Visualization> findVisualizationsByUser(User user);
 
     @EntityGraph(attributePaths = {"user", "user.visualizations"})

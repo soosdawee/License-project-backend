@@ -1,7 +1,7 @@
 package com.license.backend.domain.mapper;
 
-import com.license.backend.domain.dto.UserCreateDto;
-import com.license.backend.domain.dto.UserViewDto;
+import com.license.backend.domain.dto.user.UserCreateDto;
+import com.license.backend.domain.dto.user.UserViewDto;
 import com.license.backend.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

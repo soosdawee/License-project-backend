@@ -1,7 +1,7 @@
 package com.license.backend.controller;
 
-import com.license.backend.domain.dto.TableDataCreateDto;
-import com.license.backend.domain.dto.TableDataViewDto;
+import com.license.backend.domain.dto.table_data.TableDataCreateDto;
+import com.license.backend.domain.dto.table_data.TableDataViewDto;
 import com.license.backend.service.TableDataService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

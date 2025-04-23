@@ -1,4 +1,4 @@
-package com.license.backend.domain.dto;
+package com.license.backend.domain.dto.table_data;
 
 import lombok.Data;
 

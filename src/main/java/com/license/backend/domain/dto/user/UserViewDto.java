@@ -1,4 +1,4 @@
-package com.license.backend.domain.dto;
+package com.license.backend.domain.dto.user;
 
 import com.license.backend.domain.constant.Roles;
 import lombok.Data;

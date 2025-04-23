@@ -1,7 +1,7 @@
 package com.license.backend.service;
 
-import com.license.backend.domain.dto.TableDataCreateDto;
-import com.license.backend.domain.dto.TableDataViewDto;
+import com.license.backend.domain.dto.table_data.TableDataCreateDto;
+import com.license.backend.domain.dto.table_data.TableDataViewDto;
 
 import java.util.List;
 

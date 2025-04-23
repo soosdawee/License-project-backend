@@ -1,9 +1,9 @@
 package com.license.backend.controller;
 
-import com.license.backend.domain.dto.UserCreateDto;
-import com.license.backend.domain.dto.UserLoginDto;
-import com.license.backend.domain.dto.UserLoginViewDto;
-import com.license.backend.domain.dto.UserViewDto;
+import com.license.backend.domain.dto.user.UserCreateDto;
+import com.license.backend.domain.dto.user.UserLoginDto;
+import com.license.backend.domain.dto.user.UserLoginViewDto;
+import com.license.backend.domain.dto.user.UserViewDto;
 import com.license.backend.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;

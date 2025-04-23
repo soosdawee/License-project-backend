@@ -1,18 +1,20 @@
 package com.license.backend.service.impl;
 
-import com.license.backend.domain.dto.VisualizationCreateDto;
-import com.license.backend.domain.dto.VisualizationViewAllDto;
-import com.license.backend.domain.dto.VisualizationViewDto;
+import com.license.backend.domain.dto.visualization.VisualizationCreateDto;
+import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.domain.mapper.VisualizationMapper;
 import com.license.backend.domain.model.Visualization;
+import com.license.backend.repository.VisualizationModelRepository;
 import com.license.backend.repository.VisualizationRepository;
 import com.license.backend.service.VisualizationService;
 import com.license.backend.util.ContextUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,6 +27,8 @@ public class VisualizationServiceImpl implements VisualizationService {
 
     private final VisualizationRepository repository;
 
+    private final VisualizationModelRepository visualizationModelRepository;
+
     private final VisualizationMapper mapper;
 
     @Override
@@ -32,16 +36,10 @@ public class VisualizationServiceImpl implements VisualizationService {
     public VisualizationViewDto create(VisualizationCreateDto createDto) {
         Visualization visualization = mapper.toEntity(createDto);
         visualization.setUser(ContextUtil.getAuthenticatedUser());
-        Visualization saved = repository.save(visualization);
-        return mapper.toViewDto(saved);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public List<VisualizationViewAllDto> getAll() {
-        return repository.findAll().stream()
-                .map(mapper::toViewAllDto)
-                .collect(Collectors.toList());
+        visualization.setVisualizationModel(
+                visualizationModelRepository.findById(createDto.getVisualizationModelId())
+                        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization model not found")));
+        return mapper.toViewDto(repository.save(visualization));
     }
 
     @Override

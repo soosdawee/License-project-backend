@@ -1,4 +1,4 @@
-package com.license.backend.domain.dto;
+package com.license.backend.domain.dto.visualization;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

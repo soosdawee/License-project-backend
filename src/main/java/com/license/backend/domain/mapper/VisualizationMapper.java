@@ -1,6 +1,6 @@
 package com.license.backend.domain.mapper;
 
-import com.license.backend.domain.dto.*;
+import com.license.backend.domain.dto.visualization.*;
 import com.license.backend.domain.model.BarchartVisualization;
 import com.license.backend.domain.model.PiechartVisualization;
 import com.license.backend.domain.model.Visualization;
@@ -15,8 +15,11 @@ public interface VisualizationMapper {
     })
     Visualization toEntity(VisualizationCreateDto visualizationCreateDto);
 
-    VisualizationViewAllDto toViewAllDto(Visualization visualization);
-
+    @SubclassMappings({
+            @SubclassMapping(source = BarchartVisualization.class, target = BarchartViewDto.class),
+            @SubclassMapping(source = PiechartVisualization.class, target = PiechartViewDto.class)
+    })
+    @Mapping(source = "visualizationModel", target = "visualizationModelReducedViewDto")
     VisualizationViewDto toViewDto(Visualization visualization);
 
 }

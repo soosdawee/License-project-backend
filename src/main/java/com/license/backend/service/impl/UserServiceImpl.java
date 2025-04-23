@@ -1,10 +1,10 @@
 package com.license.backend.service.impl;
 
 import com.license.backend.config.TokenProvider;
-import com.license.backend.domain.dto.UserCreateDto;
-import com.license.backend.domain.dto.UserLoginDto;
-import com.license.backend.domain.dto.UserLoginViewDto;
-import com.license.backend.domain.dto.UserViewDto;
+import com.license.backend.domain.dto.user.UserCreateDto;
+import com.license.backend.domain.dto.user.UserLoginDto;
+import com.license.backend.domain.dto.user.UserLoginViewDto;
+import com.license.backend.domain.dto.user.UserViewDto;
 import com.license.backend.domain.mapper.UserMapper;
 import com.license.backend.domain.model.User;
 import com.license.backend.repository.UserRepository;
