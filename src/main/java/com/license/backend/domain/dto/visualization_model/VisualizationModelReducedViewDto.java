@@ -9,6 +9,8 @@ public class VisualizationModelReducedViewDto {
 
     private Integer visualizationModelId;
 
+    private String name;
+
     private List<String> columnNames;
 
 }

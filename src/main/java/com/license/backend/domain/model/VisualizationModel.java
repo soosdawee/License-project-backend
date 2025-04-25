@@ -22,6 +22,9 @@ public class VisualizationModel {
     @Column
     private Integer visualizationModelId;
 
+    @Column
+    private String name;
+
     @Lob
     private byte[] cardPhoto;
 

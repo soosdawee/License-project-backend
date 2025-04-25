@@ -7,6 +7,8 @@ import java.util.List;
 @Data
 public class VisualizationModelCreateDto {
 
+    private String name;
+
     private List<String> columnNames;
 
 }

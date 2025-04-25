@@ -42,16 +42,17 @@ public class VisualizationModelServiceImpl implements VisualizationModelService 
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<VisualizationModelViewDto> getAll() {
         return repository.findAll().stream().map(mapper::toViewDto).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public VisualizationModelViewDto get(Integer visualizationModelId) {
         return repository.findById(visualizationModelId)
                 .map(mapper::toViewDto)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization model not found"));
-
     }
 
 }

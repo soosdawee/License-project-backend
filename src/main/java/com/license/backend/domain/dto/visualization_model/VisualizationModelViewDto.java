@@ -9,6 +9,8 @@ public class VisualizationModelViewDto {
 
     private Integer visualizationModelId;
 
+    private String name;
+
     private byte[] cardPhoto;
 
     private List<String> columnNames;
