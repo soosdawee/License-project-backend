@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,22 +29,58 @@ public abstract class Visualization {
     @Column
     private String title;
 
+    @Column
+    private Integer titleSize;
+
+    @Column
+    private String font;
+
     @Lob
     @Column
     private String article;
 
     @Column
+    private Integer articleSize;
+
+    @Column
     private String backgroundColor;
+
+    @Column
+    private Boolean isShared;
+
+    @Column
+    private Boolean showLegend;
+
+    @Column
+    private Boolean showAnnotations;
+
+    @Column
+    private Boolean isAnnotationCustom;
+
+    @Column
+    private String customAnnotation;
+
+    @Column
+    private Boolean isFooter;
+
+    @Column
+    private String footerText;
+
+    @Column
+    private LocalDateTime timestamp;
+
+    @Column
+    private Integer opacity;
+
+    @Column
+    private String textColor;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(
-            mappedBy = "visualization",
-            cascade = CascadeType.ALL,
-            orphanRemoval = true
-    )
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "fk_visualization_id", referencedColumnName = "visualizationId")
     private List<TableData> tableDatas = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)

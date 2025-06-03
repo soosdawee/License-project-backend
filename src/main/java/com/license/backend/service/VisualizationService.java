@@ -11,4 +11,6 @@ public interface VisualizationService {
 
     List<VisualizationViewDto> get();
 
+    VisualizationViewDto get(Integer visualizationId);
+
 }

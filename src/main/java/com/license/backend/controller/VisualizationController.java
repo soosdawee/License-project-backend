@@ -30,4 +30,10 @@ public class VisualizationController {
         return service.get();
     }
 
+    @GetMapping("{visualizationId}")
+    @SecurityRequirement(name = "bearerAuth")
+    public VisualizationViewDto getVisualization(@PathVariable Integer visualizationId) {
+        return service.get(visualizationId);
+    }
+
 }

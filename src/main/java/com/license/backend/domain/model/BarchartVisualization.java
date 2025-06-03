@@ -3,7 +3,6 @@ package com.license.backend.domain.model;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +21,20 @@ public class BarchartVisualization extends Visualization {
 
     @Column
     private String yAxisLabel;
+
+    @Column
+    private Boolean areLabelsVisible;
+
+    @Column
+    private Boolean showGrids;
+
+    @Column
+    private String barColor;
+
+    @Column
+    private String customBarColors;
+
+    @Column
+    private Integer spacing;
 
 }

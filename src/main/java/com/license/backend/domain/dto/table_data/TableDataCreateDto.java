@@ -10,6 +10,4 @@ public class TableDataCreateDto {
 
     private List<List<String>> data;
 
-    private Visualization visualization;
-
 }

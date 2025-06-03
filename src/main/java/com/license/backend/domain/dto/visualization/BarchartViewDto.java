@@ -9,4 +9,14 @@ public class BarchartViewDto extends VisualizationViewDto {
 
     private String yAxisLabel;
 
+    private Boolean areLabelsVisible;
+
+    private Boolean showGrids;
+
+    private String barColor;
+
+    private String customBarColors;
+
+    private Integer spacing;
+
 }

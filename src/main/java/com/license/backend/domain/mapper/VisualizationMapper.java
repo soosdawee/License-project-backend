@@ -13,6 +13,7 @@ public interface VisualizationMapper {
             @SubclassMapping(source = BarchartCreateDto.class, target = BarchartVisualization.class),
             @SubclassMapping(source = PiechartCreateDto.class, target = PiechartVisualization.class)
     })
+    @Mapping(target = "isShared", constant = "false")
     Visualization toEntity(VisualizationCreateDto visualizationCreateDto);
 
     @SubclassMappings({

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,7 @@ public class VisualizationServiceImpl implements VisualizationService {
         visualization.setVisualizationModel(
                 visualizationModelRepository.findById(createDto.getVisualizationModelId())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization model not found")));
+        visualization.setTimestamp(LocalDateTime.now());
         return mapper.toViewDto(repository.save(visualization));
     }
 
@@ -48,6 +50,12 @@ public class VisualizationServiceImpl implements VisualizationService {
         return repository.findVisualizationsByUser(ContextUtil.getAuthenticatedUser()).stream()
                 .map(mapper::toViewDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public VisualizationViewDto get(Integer visualizationId) {
+        return mapper.toViewDto(repository.findById(visualizationId).orElseThrow(() -> new RuntimeException("No visualization found!")));
     }
 
 }

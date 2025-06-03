@@ -3,7 +3,7 @@ package com.license.backend.domain.dto.visualization;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.license.backend.domain.constant.VisualizationTypes;
-import com.license.backend.domain.dto.table_data.TableDataCreateDto;
+import com.license.backend.domain.model.TableData;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,11 +26,33 @@ public abstract class VisualizationCreateDto {
 
     private String title;
 
+    private Integer titleSize;
+
+    private String font;
+
     private String article;
+
+    private Integer articleSize;
 
     private String backgroundColor;
 
-    private List<TableDataCreateDto> tableDatas;
+    private Boolean showLegend;
+
+    private Boolean showAnnotations;
+
+    private Boolean isAnnotationCustom;
+
+    private String customAnnotation;
+
+    private Boolean isFooter;
+
+    private String footerText;
+
+    private Integer opacity;
+
+    private String textColor;
+
+    private List<TableData> tableDatas;
 
     private Integer visualizationModelId;
 

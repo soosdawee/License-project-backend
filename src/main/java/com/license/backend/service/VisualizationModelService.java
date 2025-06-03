@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 public interface VisualizationModelService {
 
@@ -14,5 +15,7 @@ public interface VisualizationModelService {
     List<VisualizationModelViewDto> getAll();
 
     VisualizationModelViewDto get(Integer visualizationModelId);
+
+    VisualizationModelViewDto update(Integer visualizationModelId, Map<String, Object> fields);
 
 }

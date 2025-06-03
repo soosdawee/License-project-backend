@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/visualization_model")
@@ -40,5 +41,12 @@ public class VisualizationModelController {
     public VisualizationModelViewDto getVisualizationModel(@PathVariable Integer visualizationModelId) {
         return service.get(visualizationModelId);
     }
+
+    @PatchMapping("{visualizationModelId}")
+    @SecurityRequirement(name = "bearerAuth")
+    public VisualizationModelViewDto updateVisualizationModel(@PathVariable Integer visualizationModelId, @RequestBody Map<String, Object> fields) {
+        return service.update(visualizationModelId, fields);
+    }
+
 
 }

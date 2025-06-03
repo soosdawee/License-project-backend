@@ -1,6 +1,5 @@
 package com.license.backend.domain.model;
 
-
 import com.license.backend.util.ListToJsonConverter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,9 +26,5 @@ public class TableData {
     @Convert(converter = ListToJsonConverter.class)
     @Column(columnDefinition = "TEXT")
     private List<List<String>> data;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "visualization_id")
-    private Visualization visualization;
 
 }
