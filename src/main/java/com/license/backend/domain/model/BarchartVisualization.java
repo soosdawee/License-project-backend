@@ -32,7 +32,7 @@ public class BarchartVisualization extends Visualization {
     private String barColor;
 
     @Column
-    private String customBarColors;
+    private String customColors;
 
     @Column
     private Integer spacing;

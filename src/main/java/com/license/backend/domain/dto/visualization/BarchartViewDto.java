@@ -15,7 +15,7 @@ public class BarchartViewDto extends VisualizationViewDto {
 
     private String barColor;
 
-    private String customBarColors;
+    private String customColors;
 
     private Integer spacing;
 

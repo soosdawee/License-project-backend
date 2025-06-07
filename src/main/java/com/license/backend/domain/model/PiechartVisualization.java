@@ -19,4 +19,16 @@ public class PiechartVisualization extends Visualization {
     @Column
     private Boolean showPercentages;
 
+    @Column
+    private String colorPalette;
+
+    @Column
+    private String customColors;
+
+    @Column
+    private Boolean showLegend;
+
+    @Column
+    private Integer transitionTime;
+
 }
