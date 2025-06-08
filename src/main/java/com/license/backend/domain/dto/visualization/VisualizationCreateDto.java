@@ -20,6 +20,7 @@ import java.util.List;
 @JsonSubTypes({
         @JsonSubTypes.Type(value = BarchartCreateDto.class, name = VisualizationTypes.BAR_CHART_NAME),
         @JsonSubTypes.Type(value = PiechartCreateDto.class, name = VisualizationTypes.PIE_CHART_NAME),
+        @JsonSubTypes.Type(value = LinechartCreateDto.class, name = VisualizationTypes.LINE_CHART_NAME),
 })
 @Getter
 public abstract class VisualizationCreateDto {

@@ -41,7 +41,8 @@ public class VisualizationServiceImpl implements VisualizationService {
                 visualizationModelRepository.findById(createDto.getVisualizationModelId())
                         .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization model not found")));
         visualization.setTimestamp(LocalDateTime.now());
-        return mapper.toViewDto(repository.save(visualization));
+        Visualization toReturn = repository.save(visualization);
+        return mapper.toViewDto(toReturn);
     }
 
     @Override

@@ -1,10 +1,7 @@
 package com.license.backend.domain.dto.visualization;
 
-import com.license.backend.domain.dto.table_data.TableDataViewDto;
 import com.license.backend.domain.dto.visualization_model.VisualizationModelReducedViewDto;
-import com.license.backend.domain.dto.visualization_model.VisualizationModelViewDto;
 import com.license.backend.domain.model.TableData;
-import com.license.backend.domain.model.VisualizationModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
