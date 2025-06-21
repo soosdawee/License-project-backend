@@ -48,5 +48,4 @@ public class VisualizationModelController {
         return service.update(visualizationModelId, fields);
     }
 
-
 }

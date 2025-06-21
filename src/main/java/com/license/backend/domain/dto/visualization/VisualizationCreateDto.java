@@ -53,6 +53,10 @@ public abstract class VisualizationCreateDto {
 
     private String textColor;
 
+    private Boolean isShared;
+
+    private Boolean isPublished;
+
     private List<TableData> tableDatas;
 
     private Integer visualizationModelId;

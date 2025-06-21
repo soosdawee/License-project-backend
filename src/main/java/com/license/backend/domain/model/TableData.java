@@ -27,4 +27,7 @@ public class TableData {
     @Column(columnDefinition = "TEXT")
     private List<List<String>> data;
 
+    @Column
+    private String sheetsLink;
+
 }

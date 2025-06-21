@@ -46,13 +46,15 @@ public abstract class VisualizationViewDto {
 
     private Boolean showPercentages;
 
-    private Boolean isShared;
-
     private LocalDateTime timestamp;
 
     private Integer opacity;
 
     private String textColor;
+
+    private Boolean isShared;
+
+    private Boolean isPublished;
 
     private VisualizationModelReducedViewDto visualizationModelReducedViewDto;
 

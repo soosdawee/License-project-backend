@@ -11,4 +11,6 @@ public class TableDataViewDto {
 
     private List<List<String>> data;
 
+    private String sheetsLink;
+
 }

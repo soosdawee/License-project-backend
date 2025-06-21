@@ -3,11 +3,13 @@ package com.license.backend.domain.dto.visualization;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
 public class BarchartCreateDto extends VisualizationCreateDto {
 
     private String xAxisLabel;

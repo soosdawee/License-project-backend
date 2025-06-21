@@ -49,6 +49,9 @@ public abstract class Visualization {
     private Boolean isShared;
 
     @Column
+    private Boolean isPublished;
+
+    @Column
     private Boolean showAnnotations;
 
     @Column

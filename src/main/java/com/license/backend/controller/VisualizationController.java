@@ -36,4 +36,25 @@ public class VisualizationController {
         return service.get(visualizationId);
     }
 
+    @PutMapping("{visualizationId}")
+    @SecurityRequirement(name = "bearerAuth")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateVisualization(@PathVariable Integer visualizationId, @RequestBody VisualizationCreateDto visualizationCreateDto) {
+        service.update(visualizationId, visualizationCreateDto);
+    }
+
+    @PutMapping("{visualizationId}/published")
+    @SecurityRequirement(name = "bearerAuth")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateIsPublished(@PathVariable Integer visualizationId) {
+        service.updateIsPublished(visualizationId);
+    }
+
+    @PutMapping("{visualizationId}/shared")
+    @SecurityRequirement(name = "bearerAuth")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateIsShared(@PathVariable Integer visualizationId) {
+        service.updateIsShared(visualizationId);
+    }
+
 }

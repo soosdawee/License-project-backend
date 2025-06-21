@@ -10,4 +10,6 @@ public class TableDataCreateDto {
 
     private List<List<String>> data;
 
+    private String sheetsLink;
+
 }

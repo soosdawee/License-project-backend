@@ -13,4 +13,10 @@ public interface VisualizationService {
 
     VisualizationViewDto get(Integer visualizationId);
 
+    void update(Integer visualizationId, VisualizationCreateDto visualizationCreateDto);
+
+    void updateIsPublished(Integer visualizationId);
+
+    void updateIsShared(Integer visualizationId);
+
 }
