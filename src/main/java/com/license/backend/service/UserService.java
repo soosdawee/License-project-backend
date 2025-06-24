@@ -1,9 +1,6 @@
 package com.license.backend.service;
 
-import com.license.backend.domain.dto.user.UserCreateDto;
-import com.license.backend.domain.dto.user.UserLoginDto;
-import com.license.backend.domain.dto.user.UserLoginViewDto;
-import com.license.backend.domain.dto.user.UserViewDto;
+import com.license.backend.domain.dto.user.*;
 
 import java.util.List;
 
@@ -16,5 +13,7 @@ public interface UserService {
     UserLoginViewDto login(UserLoginDto loginDto);
 
     void likeVisualization(Integer visualizationId);
+
+    UserProfileViewDto getUser(Integer userId);
 
 }

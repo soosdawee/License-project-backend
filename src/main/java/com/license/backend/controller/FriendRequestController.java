@@ -2,6 +2,7 @@ package com.license.backend.controller;
 
 import com.license.backend.domain.dto.friend_request.FriendRequestDto;
 import com.license.backend.domain.dto.friend_request.FriendRequestViewDto;
+import com.license.backend.domain.dto.user.UserProfileViewDto;
 import com.license.backend.service.FriendRequestService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,13 @@ public class FriendRequestController {
     @SecurityRequirement(name = "bearerAuth")
     public List<FriendRequestViewDto> getRequests() {
         return service.getPendingRequestsForCurrentUser();
+    }
+
+    @GetMapping("{userId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @SecurityRequirement(name = "bearerAuth")
+    public List<UserProfileViewDto> getRequests(@PathVariable Integer userId) {
+        return service.getFriends(userId);
     }
 
 }

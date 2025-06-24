@@ -47,6 +47,12 @@ public class User implements UserDetails {
     @Column
     private Boolean isActive;
 
+    @Lob
+    private byte[] profilePicture;
+
+    @Column
+    private String description;
+
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,

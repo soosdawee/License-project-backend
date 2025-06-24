@@ -1,10 +1,7 @@
 package com.license.backend.service.impl;
 
 import com.license.backend.config.TokenProvider;
-import com.license.backend.domain.dto.user.UserCreateDto;
-import com.license.backend.domain.dto.user.UserLoginDto;
-import com.license.backend.domain.dto.user.UserLoginViewDto;
-import com.license.backend.domain.dto.user.UserViewDto;
+import com.license.backend.domain.dto.user.*;
 import com.license.backend.domain.mapper.UserMapper;
 import com.license.backend.domain.model.User;
 import com.license.backend.domain.model.Visualization;
@@ -23,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -92,6 +90,18 @@ public class UserServiceImpl implements UserService {
             user.getLikedVisualizations().add(visualization);
         }
         repository.save(user);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public UserProfileViewDto getUser(Integer userId) {
+        Optional<User> user = repository.findById(userId);
+        if (user.isPresent()) {
+            return mapper.toProfileViewDto(user.get());
+        } else {
+            System.out.println("No user with this id exception placeholder!");
+            return null;
+        }
     }
 
 }

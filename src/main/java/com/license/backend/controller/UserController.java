@@ -1,9 +1,6 @@
 package com.license.backend.controller;
 
-import com.license.backend.domain.dto.user.UserCreateDto;
-import com.license.backend.domain.dto.user.UserLoginDto;
-import com.license.backend.domain.dto.user.UserLoginViewDto;
-import com.license.backend.domain.dto.user.UserViewDto;
+import com.license.backend.domain.dto.user.*;
 import com.license.backend.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
@@ -42,6 +39,12 @@ public class UserController {
     @SecurityRequirement(name = "bearerAuth")
     public List<UserViewDto> getUsers() {
         return service.getUsers();
+    }
+
+    @GetMapping("{userId}")
+    @SecurityRequirement(name = "bearerAuth")
+    public UserProfileViewDto getUser(@PathVariable Integer userId) {
+        return service.getUser(userId);
     }
 
 }

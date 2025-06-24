@@ -3,6 +3,8 @@ package com.license.backend.service.impl;
 import com.license.backend.domain.constant.RequestStatus;
 import com.license.backend.domain.dto.friend_request.FriendRequestDto;
 import com.license.backend.domain.dto.friend_request.FriendRequestViewDto;
+import com.license.backend.domain.dto.user.UserProfileViewDto;
+import com.license.backend.domain.mapper.UserMapper;
 import com.license.backend.domain.model.FriendRequest;
 import com.license.backend.domain.model.User;
 import com.license.backend.repository.FriendRequestRepository;
@@ -13,10 +15,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 @RequiredArgsConstructor
@@ -27,6 +32,8 @@ public class FriendRequestServiceImpl implements FriendRequestService {
     private final UserRepository userRepository;
 
     private final FriendRequestRepository friendRequestRepository;
+
+    private final UserMapper userMapper;
 
     public void sendFriendRequest(Integer receiverId) {
         User sender = ContextUtil.getAuthenticatedUser();
@@ -91,6 +98,22 @@ public class FriendRequestServiceImpl implements FriendRequestService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserProfileViewDto> getFriends(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        List<User> sent = friendRequestRepository.findAcceptedFriendsSentBy(user);
+        List<User> received = friendRequestRepository.findAcceptedFriendsReceivedBy(user);
+
+        return Stream.concat(sent.stream(), received.stream())
+                .distinct()
+                .map(userMapper::toProfileViewDto)
+                .collect(Collectors.toList());
+    }
+
 
 }
 
