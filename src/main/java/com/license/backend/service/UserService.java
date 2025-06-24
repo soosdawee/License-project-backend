@@ -15,4 +15,6 @@ public interface UserService {
 
     UserLoginViewDto login(UserLoginDto loginDto);
 
+    void likeVisualization(Integer visualizationId);
+
 }

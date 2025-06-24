@@ -11,9 +11,7 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
@@ -56,6 +54,15 @@ public class User implements UserDetails {
     )
     @JsonIgnore
     private List<Visualization> visualizations = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_liked_visualizations",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "visualization_id")
+    )
+    @JsonIgnore
+    private Set<Visualization> likedVisualizations = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

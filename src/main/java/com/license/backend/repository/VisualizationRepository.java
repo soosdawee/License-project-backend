@@ -4,8 +4,10 @@ import com.license.backend.domain.model.User;
 import com.license.backend.domain.model.Visualization;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface VisualizationRepository extends JpaRepository<Visualization, Integer> {
 
@@ -14,5 +16,16 @@ public interface VisualizationRepository extends JpaRepository<Visualization, In
 
     @EntityGraph(attributePaths = {"user", "user.visualizations"})
     List<Visualization> findAll();
+
+    @Query("""
+        SELECT DISTINCT v FROM Visualization v
+        JOIN FETCH v.user
+        LEFT JOIN FETCH v.likedByUsers
+        WHERE v.isShared = true
+    """)
+    List<Visualization> findSharedVisualizations();
+
+    @EntityGraph(attributePaths = "user")
+    Optional<Visualization> findById(Integer id);
 
 }

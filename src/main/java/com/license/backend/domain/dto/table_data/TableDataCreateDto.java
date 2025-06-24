@@ -1,6 +1,5 @@
 package com.license.backend.domain.dto.table_data;
 
-import com.license.backend.domain.model.Visualization;
 import lombok.Data;
 
 import java.util.List;

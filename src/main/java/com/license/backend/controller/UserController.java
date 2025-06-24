@@ -31,6 +31,13 @@ public class UserController {
         return service.login(userLoginDto);
     }
 
+    @PostMapping("{visualizationId}/like")
+    @ResponseStatus(HttpStatus.CREATED)
+    @SecurityRequirement(name = "bearerAuth")
+    public void likeVisualization(@PathVariable Integer visualizationId){
+        service.likeVisualization(visualizationId);
+    }
+
     @GetMapping
     @SecurityRequirement(name = "bearerAuth")
     public List<UserViewDto> getUsers() {

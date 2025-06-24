@@ -8,7 +8,9 @@ import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "visualizations")
@@ -75,6 +77,12 @@ public abstract class Visualization {
     @Column
     private String textColor;
 
+    @Column
+    private Boolean isReported;
+
+    @Column
+    private Boolean wasReviewedNegatively;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -86,5 +94,11 @@ public abstract class Visualization {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "visualization_model_id")
     private VisualizationModel visualizationModel;
+
+    @ManyToMany(mappedBy = "likedVisualizations")
+    private Set<User> likedByUsers = new HashSet<>();
+
+    @OneToMany(mappedBy = "visualization", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
 }

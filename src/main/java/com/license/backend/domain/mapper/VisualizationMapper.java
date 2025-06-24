@@ -16,6 +16,8 @@ public interface VisualizationMapper {
             @SubclassMapping(source = LinechartCreateDto.class, target = LinechartVisualization.class)
     })
     @Mapping(target = "isShared", constant = "false")
+    @Mapping(target = "isReported", constant = "false")
+    @Mapping(target = "wasReviewedNegatively", constant = "false")
     Visualization toEntity(VisualizationCreateDto visualizationCreateDto);
 
     @SubclassMappings({

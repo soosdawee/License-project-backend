@@ -7,8 +7,11 @@ import com.license.backend.domain.dto.user.UserLoginViewDto;
 import com.license.backend.domain.dto.user.UserViewDto;
 import com.license.backend.domain.mapper.UserMapper;
 import com.license.backend.domain.model.User;
+import com.license.backend.domain.model.Visualization;
 import com.license.backend.repository.UserRepository;
+import com.license.backend.repository.VisualizationRepository;
 import com.license.backend.service.UserService;
+import com.license.backend.util.ContextUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +31,8 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserRepository repository;
+
+    private final VisualizationRepository visualizationRepository;
 
     private final UserMapper mapper;
 
@@ -72,6 +77,21 @@ public class UserServiceImpl implements UserService {
         }
 
         return null;
+    }
+
+    @Override
+    @Transactional
+    public void likeVisualization(Integer visualizationId) {
+        Visualization visualization = visualizationRepository.findById(visualizationId)
+                .orElseThrow(() -> new RuntimeException("Visualization not found"));
+        String email = ContextUtil.getAuthenticatedUser().getEmail();
+        User user = repository.findByEmail(email);
+        if (user.getLikedVisualizations().contains(visualization)) {
+            user.getLikedVisualizations().remove(visualization);
+        } else {
+            user.getLikedVisualizations().add(visualization);
+        }
+        repository.save(user);
     }
 
 }

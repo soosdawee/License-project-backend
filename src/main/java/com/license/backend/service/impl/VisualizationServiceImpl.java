@@ -1,6 +1,5 @@
 package com.license.backend.service.impl;
 
-import com.license.backend.domain.dto.visualization.BarchartCreateDto;
 import com.license.backend.domain.dto.visualization.VisualizationCreateDto;
 import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.domain.mapper.VisualizationMapper;
@@ -19,8 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
@@ -65,6 +64,15 @@ public class VisualizationServiceImpl implements VisualizationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<VisualizationViewDto> getShared() {
+        return repository.findSharedVisualizations().stream()
+                .sorted(Comparator.comparing(Visualization::getTimestamp).reversed())
+                .map(mapper::toViewDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public void update(Integer visualizationId, VisualizationCreateDto visualizationCreateDto) {
         Visualization visualization = repository.findById(visualizationId)
@@ -87,6 +95,7 @@ public class VisualizationServiceImpl implements VisualizationService {
     }
 
     @Override
+    @Transactional
     public void updateIsPublished(Integer visualizationId) {
         Visualization visualization = repository.findById(visualizationId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization not found"));
@@ -101,6 +110,7 @@ public class VisualizationServiceImpl implements VisualizationService {
     }
 
     @Override
+    @Transactional
     public void updateIsShared(Integer visualizationId) {
         Visualization visualization = repository.findById(visualizationId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization not found"));
@@ -110,6 +120,16 @@ public class VisualizationServiceImpl implements VisualizationService {
         }
 
         visualization.setIsShared(!visualization.getIsShared());
+
+        repository.save(visualization);
+    }
+
+    @Override
+    public void report(Integer visualizationId) {
+        Visualization visualization = repository.findById(visualizationId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization not found"));
+
+        visualization.setIsReported(true);
 
         repository.save(visualization);
     }
