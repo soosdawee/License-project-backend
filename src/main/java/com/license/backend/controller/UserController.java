@@ -1,12 +1,15 @@
 package com.license.backend.controller;
 
 import com.license.backend.domain.dto.user.*;
+import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -45,6 +48,33 @@ public class UserController {
     @SecurityRequirement(name = "bearerAuth")
     public UserProfileViewDto getUser(@PathVariable Integer userId) {
         return service.getUser(userId);
+    }
+
+    @GetMapping("{userId}/liked")
+    @SecurityRequirement(name = "bearerAuth")
+    public List<VisualizationViewDto> getLikedVisualizations(@PathVariable Integer userId) {
+        return service.getLiked(userId);
+    }
+
+    @PutMapping("/profile_picture")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @SecurityRequirement(name = "bearerAuth")
+    public void updateProfilePicture(@RequestParam("file") MultipartFile file) throws IOException {
+        service.updateProfilePicture(file);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @SecurityRequirement(name = "bearerAuth")
+    public void updateProfilePicture(@RequestBody UserUpdateDto dto) {
+        service.update(dto);
+    }
+
+    @PutMapping("/password")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @SecurityRequirement(name = "bearerAuth")
+    public void updateProfilePicture(@RequestBody UserPasswordDto dto) {
+        service.updatePassword(dto);
     }
 
 }

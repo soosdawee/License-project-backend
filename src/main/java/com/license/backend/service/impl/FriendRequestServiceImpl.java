@@ -3,6 +3,7 @@ package com.license.backend.service.impl;
 import com.license.backend.domain.constant.RequestStatus;
 import com.license.backend.domain.dto.friend_request.FriendRequestDto;
 import com.license.backend.domain.dto.friend_request.FriendRequestViewDto;
+import com.license.backend.domain.dto.friend_request.FriendshipDto;
 import com.license.backend.domain.dto.user.UserProfileViewDto;
 import com.license.backend.domain.mapper.UserMapper;
 import com.license.backend.domain.model.FriendRequest;
@@ -35,6 +36,8 @@ public class FriendRequestServiceImpl implements FriendRequestService {
 
     private final UserMapper userMapper;
 
+    @Override
+    @Transactional
     public void sendFriendRequest(Integer receiverId) {
         User sender = ContextUtil.getAuthenticatedUser();
         User receiver = userRepository.findById(receiverId)
@@ -62,6 +65,8 @@ public class FriendRequestServiceImpl implements FriendRequestService {
         friendRequestRepository.save(request);
     }
 
+    @Override
+    @Transactional
     public void respondToFriendRequest(Integer requestId, FriendRequestDto dto) {
         System.out.println(dto.getStatus().toString());
         if (dto.getStatus() != RequestStatus.ACCEPTED && dto.getStatus() != RequestStatus.REJECTED) {
@@ -85,6 +90,8 @@ public class FriendRequestServiceImpl implements FriendRequestService {
         friendRequestRepository.save(request);
     }
 
+    @Override
+    @Transactional(readOnly = true)
     public List<FriendRequestViewDto> getPendingRequestsForCurrentUser() {
         User currentUser = ContextUtil.getAuthenticatedUser();
         List<FriendRequest> pendingRequests = friendRequestRepository
@@ -114,6 +121,15 @@ public class FriendRequestServiceImpl implements FriendRequestService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public FriendshipDto areWeFriends(Integer userId) {
+        Boolean isFriend = getFriends(ContextUtil.getAuthenticatedUser().getUserId()).stream()
+                .map(UserProfileViewDto::getUserId)
+                .anyMatch(id -> id.equals(userId));
+
+        return new FriendshipDto(isFriend);
+    }
 
 }
 

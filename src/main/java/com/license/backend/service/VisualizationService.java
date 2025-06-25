@@ -15,6 +15,8 @@ public interface VisualizationService {
 
     List<VisualizationViewDto> getShared();
 
+    List<VisualizationViewDto> getShared(Integer userId);
+
     void update(Integer visualizationId, VisualizationCreateDto visualizationCreateDto);
 
     void updateIsPublished(Integer visualizationId);

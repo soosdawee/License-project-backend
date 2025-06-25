@@ -1,5 +1,6 @@
 package com.license.backend.service.impl;
 
+import com.license.backend.domain.dto.user.UserUpdateDto;
 import com.license.backend.domain.dto.visualization.VisualizationCreateDto;
 import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.domain.mapper.VisualizationMapper;
@@ -67,6 +68,15 @@ public class VisualizationServiceImpl implements VisualizationService {
     @Transactional(readOnly = true)
     public List<VisualizationViewDto> getShared() {
         return repository.findSharedVisualizations().stream()
+                .sorted(Comparator.comparing(Visualization::getTimestamp).reversed())
+                .map(mapper::toViewDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<VisualizationViewDto> getShared(Integer userId) {
+        return repository.findSharedVisualizationsByUserId(userId).stream()
                 .sorted(Comparator.comparing(Visualization::getTimestamp).reversed())
                 .map(mapper::toViewDto)
                 .collect(Collectors.toList());

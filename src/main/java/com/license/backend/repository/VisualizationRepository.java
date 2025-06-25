@@ -5,6 +5,7 @@ import com.license.backend.domain.model.Visualization;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,14 @@ public interface VisualizationRepository extends JpaRepository<Visualization, In
         WHERE v.isShared = true
     """)
     List<Visualization> findSharedVisualizations();
+
+    @Query("""
+    SELECT DISTINCT v FROM Visualization v
+    JOIN FETCH v.user u
+    LEFT JOIN FETCH v.likedByUsers
+    WHERE v.isShared = true AND u.userId = :userId
+""")
+    List<Visualization> findSharedVisualizationsByUserId(@Param("userId") Integer userId);
 
     @EntityGraph(attributePaths = "user")
     Optional<Visualization> findById(Integer id);

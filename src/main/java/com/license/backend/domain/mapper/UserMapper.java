@@ -22,16 +22,6 @@ public interface UserMapper {
 
     List<UserViewDto> toViewDtos(List<User> users);
 
-    @Mapping(source = "visualizations", target = "sharedVisualizationIds")
-    @Mapping(source = "likedVisualizations", target = "likedVisualizationIds")
     UserProfileViewDto toProfileViewDto(User user);
-
-    default List<Integer> mapVisualizationsToIds(Collection<Visualization> visualizations) {
-        if (visualizations == null) return null;
-        return visualizations.stream()
-                .filter(Visualization::getIsShared)
-                .map(Visualization::getVisualizationId)
-                .toList();
-    }
 
 }

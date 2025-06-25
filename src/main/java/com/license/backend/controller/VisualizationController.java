@@ -42,6 +42,12 @@ public class VisualizationController {
         return service.getShared();
     }
 
+    @GetMapping("{userId}/shared")
+    @SecurityRequirement(name = "bearerAuth")
+    public List<VisualizationViewDto> getSharedVisualizations(@PathVariable Integer userId) {
+        return service.getShared(userId);
+    }
+
     @PutMapping("{visualizationId}")
     @SecurityRequirement(name = "bearerAuth")
     @ResponseStatus(HttpStatus.NO_CONTENT)
