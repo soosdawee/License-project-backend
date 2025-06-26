@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class BarchartCreateDto extends VisualizationCreateDto {
+public class ScatterPlotCreateDto extends VisualizationCreateDto {
 
     private String xAxisLabel;
 
@@ -19,10 +19,12 @@ public class BarchartCreateDto extends VisualizationCreateDto {
 
     private Boolean showGrids;
 
-    private String barColor;
+    private String colorPalette;
 
     private String customColors;
 
-    private Integer spacing;
+    private Boolean showLegend;
+
+    private Integer transitionTime;
 
 }

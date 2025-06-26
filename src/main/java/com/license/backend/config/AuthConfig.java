@@ -37,7 +37,7 @@ public class AuthConfig {
                         .requestMatchers(HttpMethod.GET, "/table_data").permitAll()
                         .requestMatchers(HttpMethod.GET, "/table_data/*").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/visualization/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/visualization/published/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/visualization/all").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/visualization_model").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.PATCH, "/visualization_model/*").hasAuthority(Roles.ADMIN.getAuthority())

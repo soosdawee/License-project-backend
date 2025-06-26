@@ -7,6 +7,7 @@ import com.license.backend.domain.mapper.UserMapper;
 import com.license.backend.domain.mapper.VisualizationMapper;
 import com.license.backend.domain.model.User;
 import com.license.backend.domain.model.Visualization;
+import com.license.backend.exception.FailedLoginException;
 import com.license.backend.repository.UserRepository;
 import com.license.backend.repository.VisualizationRepository;
 import com.license.backend.service.UserService;
@@ -68,7 +69,7 @@ public class UserServiceImpl implements UserService {
         User user = repository.findByEmail(loginDto.getEmail());
 
         if (user == null || !user.getIsActive()) {
-            System.out.println("User not found exception placeholder\n");
+            throw new FailedLoginException("There is no user with this email!");
         }
 
         var usernamePassword = new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getUserPassword());
@@ -78,10 +79,8 @@ public class UserServiceImpl implements UserService {
             var accessToken = tokenProvider.generateAccessToken((User) authUser.getPrincipal());
             return new UserLoginViewDto(user.getUserId(), user.getEmail(), user.getUserType(), accessToken);
         } catch (AuthenticationException authenticationException) {
-            System.out.println("Login fail exception placeholder\n");
+            throw new FailedLoginException("Email or password incorrect!");
         }
-
-        return null;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.license.backend.domain.dto.visualization;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class BarchartCreateDto extends VisualizationCreateDto {
+public class AreaChartCreateDto extends VisualizationCreateDto {
 
     private String xAxisLabel;
 
@@ -19,10 +20,8 @@ public class BarchartCreateDto extends VisualizationCreateDto {
 
     private Boolean showGrids;
 
-    private String barColor;
+    private String colorPalette;
 
     private String customColors;
-
-    private Integer spacing;
 
 }

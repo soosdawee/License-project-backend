@@ -5,6 +5,7 @@ import com.license.backend.domain.dto.visualization.VisualizationCreateDto;
 import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.domain.mapper.VisualizationMapper;
 import com.license.backend.domain.model.Visualization;
+import com.license.backend.exception.InaccessibleException;
 import com.license.backend.repository.VisualizationModelRepository;
 import com.license.backend.repository.VisualizationRepository;
 import com.license.backend.service.VisualizationService;
@@ -21,6 +22,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -61,12 +63,41 @@ public class VisualizationServiceImpl implements VisualizationService {
     @Override
     @Transactional(readOnly = true)
     public VisualizationViewDto get(Integer visualizationId) {
-        return mapper.toViewDto(repository.findById(visualizationId).orElseThrow(() -> new RuntimeException("No visualization found!")));
+        Visualization visualization = repository.findById(visualizationId).orElseThrow(() -> new RuntimeException("No visualization found!"));
+        if (visualization.getUser().getUserId().equals(ContextUtil.getAuthenticatedUser().getUserId())) {
+            return mapper.toViewDto(visualization);
+        } else {
+            throw new InaccessibleException("This visualization was not published or shared with you!");
+        }
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<VisualizationViewDto> getShared() {
+    public VisualizationViewDto getPublished(Integer visualizationId) {
+        Visualization visualization = repository.findById(visualizationId).orElseThrow(() -> new RuntimeException("No visualization found!"));
+        if (visualization.getIsPublished()) {
+            return mapper.toViewDto(visualization);
+        }
+        else {
+            throw new InaccessibleException("This visualization was not published!");
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public VisualizationViewDto getShared(Integer visualizationId) {
+        Visualization visualization = repository.findById(visualizationId).orElseThrow(() -> new RuntimeException("No visualization found!"));
+        if (visualization.getIsShared()) {
+            return mapper.toViewDto(visualization);
+        }
+        else {
+            throw new InaccessibleException("This visualization was not shared with you!");
+        }
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<VisualizationViewDto> getSharedVisualizationsOfUser() {
         return repository.findSharedVisualizations().stream()
                 .sorted(Comparator.comparing(Visualization::getTimestamp).reversed())
                 .map(mapper::toViewDto)
@@ -75,7 +106,7 @@ public class VisualizationServiceImpl implements VisualizationService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<VisualizationViewDto> getShared(Integer userId) {
+    public List<VisualizationViewDto> getSharedVisualizationsOfUser(Integer userId) {
         return repository.findSharedVisualizationsByUserId(userId).stream()
                 .sorted(Comparator.comparing(Visualization::getTimestamp).reversed())
                 .map(mapper::toViewDto)

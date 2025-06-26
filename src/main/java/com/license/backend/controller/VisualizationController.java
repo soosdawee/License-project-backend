@@ -30,22 +30,34 @@ public class VisualizationController {
         return service.get();
     }
 
+    //sajat
     @GetMapping("{visualizationId}")
     @SecurityRequirement(name = "bearerAuth")
     public VisualizationViewDto getVisualization(@PathVariable Integer visualizationId) {
         return service.get(visualizationId);
     }
 
+    @GetMapping("/published/{visualizationId}")
+    public VisualizationViewDto getPublishedVisualization(@PathVariable Integer visualizationId) {
+        return service.getPublished(visualizationId);
+    }
+
+    @GetMapping("/shared/{visualizationId}")
+    @SecurityRequirement(name = "bearerAuth")
+    public VisualizationViewDto getSharedVisualization(@PathVariable Integer visualizationId) {
+        return service.getShared(visualizationId);
+    }
+
     @GetMapping("/shared")
     @SecurityRequirement(name = "bearerAuth")
     public List<VisualizationViewDto> getSharedVisualizations() {
-        return service.getShared();
+        return service.getSharedVisualizationsOfUser();
     }
 
     @GetMapping("{userId}/shared")
     @SecurityRequirement(name = "bearerAuth")
     public List<VisualizationViewDto> getSharedVisualizations(@PathVariable Integer userId) {
-        return service.getShared(userId);
+        return service.getSharedVisualizationsOfUser(userId);
     }
 
     @PutMapping("{visualizationId}")
