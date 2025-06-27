@@ -37,4 +37,21 @@ public interface VisualizationRepository extends JpaRepository<Visualization, In
     @EntityGraph(attributePaths = "user")
     Optional<Visualization> findById(Integer id);
 
+    @Query("""
+    SELECT DISTINCT v FROM Visualization v
+    JOIN FETCH v.user
+    LEFT JOIN FETCH v.likedByUsers
+    WHERE v.isReported = true
+""")
+    List<Visualization> findReportedVisualizations();
+
+    @Query("""
+    SELECT DISTINCT v FROM Visualization v
+    JOIN FETCH v.user
+    LEFT JOIN FETCH v.likedByUsers
+    WHERE v.wasReviewedNegatively = true
+""")
+    List<Visualization> findNegativelyReviewedVisualizations();
+
+
 }

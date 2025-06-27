@@ -21,6 +21,10 @@ public interface VisualizationService {
 
     List<VisualizationViewDto> getSharedVisualizationsOfUser(Integer userId);
 
+    List<VisualizationViewDto> getReportedVisualizations();
+
+    List<VisualizationViewDto> getNegativelyReviewed();
+
     void update(Integer visualizationId, VisualizationCreateDto visualizationCreateDto);
 
     void updateIsPublished(Integer visualizationId);
@@ -28,5 +32,13 @@ public interface VisualizationService {
     void updateIsShared(Integer visualizationId);
 
     void report(Integer visualizationId);
+
+    void unreport(Integer visualizationId);
+
+    void reviewNegatively(Integer visualizationId);
+
+    void delete(Integer visualizationId);
+
+    void adminDelete(Integer visualizationId);
 
 }

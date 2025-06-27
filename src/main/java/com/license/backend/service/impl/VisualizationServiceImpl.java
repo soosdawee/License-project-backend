@@ -1,6 +1,5 @@
 package com.license.backend.service.impl;
 
-import com.license.backend.domain.dto.user.UserUpdateDto;
 import com.license.backend.domain.dto.visualization.VisualizationCreateDto;
 import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.domain.mapper.VisualizationMapper;
@@ -22,7 +21,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
@@ -114,6 +112,22 @@ public class VisualizationServiceImpl implements VisualizationService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<VisualizationViewDto> getReportedVisualizations() {
+        return repository.findReportedVisualizations().stream()
+                .map(mapper::toViewDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<VisualizationViewDto> getNegativelyReviewed() {
+        return repository.findNegativelyReviewedVisualizations().stream()
+                .map(mapper::toViewDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     @Transactional
     public void update(Integer visualizationId, VisualizationCreateDto visualizationCreateDto) {
         Visualization visualization = repository.findById(visualizationId)
@@ -173,6 +187,46 @@ public class VisualizationServiceImpl implements VisualizationService {
         visualization.setIsReported(true);
 
         repository.save(visualization);
+    }
+
+    @Override
+    @Transactional
+    public void unreport(Integer visualizationId) {
+        Visualization visualization = repository.findById(visualizationId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization not found"));
+
+        visualization.setIsReported(false);
+
+        repository.save(visualization);
+    }
+
+    @Override
+    @Transactional
+    public void reviewNegatively(Integer visualizationId) {
+        Visualization visualization = repository.findById(visualizationId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization not found"));
+
+        visualization.setWasReviewedNegatively(true);
+
+        repository.save(visualization);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer visualizationId) {
+        Visualization visualization = repository.findById(visualizationId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Visualization not found"));
+        if (visualization.getUser().getUserId().equals(ContextUtil.getAuthenticatedUser().getUserId())) {
+            repository.delete(visualization);
+        } else {
+            throw new InaccessibleException("This visualization does not belong to you!");
+        }
+    }
+
+    @Override
+    @Transactional
+    public void adminDelete(Integer visualizationId) {
+        repository.deleteById(visualizationId);
     }
 
 }

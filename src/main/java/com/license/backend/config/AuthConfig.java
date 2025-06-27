@@ -31,16 +31,32 @@ public class AuthConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/ws/**").permitAll()
+                        .requestMatchers(
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html",
+                                "/swagger-resources/**",
+                                "/webjars/**",
+                                "/swagger-config/**"
+                        ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/forgot_password").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/reset_password").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/user").hasAuthority(Roles.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.DELETE, "/user").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/table_data").permitAll()
                         .requestMatchers(HttpMethod.GET, "/table_data").permitAll()
                         .requestMatchers(HttpMethod.GET, "/table_data/*").permitAll()
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/visualization/published/*").permitAll()
                         .requestMatchers(HttpMethod.GET, "/visualization/all").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/visualization_model").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.PATCH, "/visualization_model/*").hasAuthority(Roles.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.GET, "/visualization/reported").hasAuthority(Roles.FACTCHECKER.getAuthority())
+                        .requestMatchers(HttpMethod.PUT, "/visualization/unreport/*").hasAuthority(Roles.FACTCHECKER.getAuthority())
+                        .requestMatchers(HttpMethod.PUT, "/visualization/review_negatively/*").hasAuthority(Roles.FACTCHECKER.getAuthority())
+                        .requestMatchers(HttpMethod.GET, "/visualization/reviewed_negatively").hasAuthority(Roles.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.DELETE, "/visualization/admin/*").hasAuthority(Roles.ADMIN.getAuthority())
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

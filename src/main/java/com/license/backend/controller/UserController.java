@@ -1,16 +1,21 @@
 package com.license.backend.controller;
 
 import com.license.backend.domain.dto.user.*;
+import com.license.backend.domain.dto.visualization.VisualizationReducedViewDto;
 import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.service.UserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.mail.MessagingException;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
@@ -52,7 +57,7 @@ public class UserController {
 
     @GetMapping("{userId}/liked")
     @SecurityRequirement(name = "bearerAuth")
-    public List<VisualizationViewDto> getLikedVisualizations(@PathVariable Integer userId) {
+    public Set<VisualizationReducedViewDto> getLikedVisualizations(@PathVariable Integer userId) {
         return service.getLiked(userId);
     }
 
@@ -75,6 +80,30 @@ public class UserController {
     @SecurityRequirement(name = "bearerAuth")
     public void updateProfilePicture(@RequestBody UserPasswordDto dto) {
         service.updatePassword(dto);
+    }
+
+    @PutMapping("/delete")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @SecurityRequirement(name = "bearerAuth")
+    public void softDelete() {
+        service.softDelete();
+    }
+
+    @DeleteMapping("{userId}")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    @SecurityRequirement(name = "bearerAuth")
+    public void delete(@PathVariable Integer userId) {
+        service.delete(userId);
+    }
+
+    @PostMapping("forgot_password")
+    public void forgotPassword(@RequestParam String email) throws MessagingException, UnsupportedEncodingException {
+        service.processForgotPassword(email);
+    }
+
+    @PostMapping("reset_password")
+    public void processResetPassword(@RequestParam String token, @RequestParam String password) {
+        service.processResetPassword(token, password);
     }
 
 }

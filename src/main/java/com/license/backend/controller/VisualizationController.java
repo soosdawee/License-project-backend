@@ -30,7 +30,6 @@ public class VisualizationController {
         return service.get();
     }
 
-    //sajat
     @GetMapping("{visualizationId}")
     @SecurityRequirement(name = "bearerAuth")
     public VisualizationViewDto getVisualization(@PathVariable Integer visualizationId) {
@@ -60,6 +59,18 @@ public class VisualizationController {
         return service.getSharedVisualizationsOfUser(userId);
     }
 
+    @GetMapping("/reported")
+    @SecurityRequirement(name = "bearerAuth")
+    public List<VisualizationViewDto> getReportedVisualizations() {
+        return service.getReportedVisualizations();
+    }
+
+    @GetMapping("/reviewed_negatively")
+    @SecurityRequirement(name = "bearerAuth")
+    public List<VisualizationViewDto> getNegativelyReviewed() {
+        return service.getNegativelyReviewed();
+    }
+
     @PutMapping("{visualizationId}")
     @SecurityRequirement(name = "bearerAuth")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -86,6 +97,32 @@ public class VisualizationController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void reportVisualization(@PathVariable Integer visualizationId) {
         service.report(visualizationId);
+    }
+
+    @PutMapping("unreport/{visualizationId}")
+    @SecurityRequirement(name = "bearerAuth")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void unreportVisualization(@PathVariable Integer visualizationId) {
+        service.unreport(visualizationId);
+    }
+
+    @PutMapping("review_negatively/{visualizationId}")
+    @SecurityRequirement(name = "bearerAuth")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void reviewNegatively(@PathVariable Integer visualizationId) {
+        service.reviewNegatively(visualizationId);
+    }
+
+    @DeleteMapping("{visualizationId}")
+    @SecurityRequirement(name = "bearerAuth")
+    public void deleteVisualization(@PathVariable Integer visualizationId) {
+        service.delete(visualizationId);
+    }
+
+    @DeleteMapping("admin/{visualizationId}")
+    @SecurityRequirement(name = "bearerAuth")
+    public void adminDelete(@PathVariable Integer visualizationId) {
+        service.adminDelete(visualizationId);
     }
 
 

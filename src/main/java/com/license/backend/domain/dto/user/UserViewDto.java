@@ -1,6 +1,8 @@
 package com.license.backend.domain.dto.user;
 
 import com.license.backend.domain.constant.Roles;
+import com.license.backend.domain.dto.visualization.VisualizationReducedViewDto;
+import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.domain.model.Visualization;
 import lombok.Data;
 
@@ -17,12 +19,12 @@ public class UserViewDto {
 
     private String email;
 
-    private String userPassword;
-
     private Roles userType;
 
     private Boolean isActive;
 
-    private Set<Visualization> likedVisualizations;
+    private byte[] profilePicture;
+
+    private Set<VisualizationReducedViewDto> likedVisualizations;
 
 }

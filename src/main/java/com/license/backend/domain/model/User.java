@@ -55,6 +55,9 @@ public class User implements UserDetails {
     @Column
     private String description;
 
+    @Column
+    private String resetPasswordToken;
+
     @OneToMany(
             mappedBy = "user",
             cascade = CascadeType.ALL,

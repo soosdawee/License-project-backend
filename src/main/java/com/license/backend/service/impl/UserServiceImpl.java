@@ -2,7 +2,7 @@ package com.license.backend.service.impl;
 
 import com.license.backend.config.TokenProvider;
 import com.license.backend.domain.dto.user.*;
-import com.license.backend.domain.dto.visualization.VisualizationViewDto;
+import com.license.backend.domain.dto.visualization.VisualizationReducedViewDto;
 import com.license.backend.domain.mapper.UserMapper;
 import com.license.backend.domain.mapper.VisualizationMapper;
 import com.license.backend.domain.model.User;
@@ -12,8 +12,13 @@ import com.license.backend.repository.UserRepository;
 import com.license.backend.repository.VisualizationRepository;
 import com.license.backend.service.UserService;
 import com.license.backend.util.ContextUtil;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.messaging.MessagingException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
@@ -24,9 +29,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -47,6 +53,8 @@ public class UserServiceImpl implements UserService {
     private final AuthenticationManager authenticationManager;
 
     private final TokenProvider tokenProvider;
+
+    private final JavaMailSender mailSender;
 
     @Override
     @Transactional
@@ -112,12 +120,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<VisualizationViewDto> getLiked(Integer userId) {
-        User user = repository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        return user.getLikedVisualizations().stream()
-                .map(visualizationMapper::toViewDto)
-                .collect(Collectors.toList());
+    public Set<VisualizationReducedViewDto> getLiked(Integer userId) {
+        Set<Visualization> liked = repository.findLikedVisualizationsByUserId(userId);
+        return visualizationMapper.toReducedViewDto(liked);
     }
 
     @Override
@@ -148,6 +153,63 @@ public class UserServiceImpl implements UserService {
         } else {
             System.out.println("Password mismatch exception placeholder");
         }
+    }
+
+    @Override
+    @Transactional
+    public void softDelete() {
+        User user = ContextUtil.getAuthenticatedUser();
+        user.setIsActive(false);
+        repository.save(user);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer userId) {
+        repository.deleteById(userId);
+    }
+
+    public void sendEmail(String recipientEmail, String link) throws MessagingException, UnsupportedEncodingException, jakarta.mail.MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("MS_1GSDA2@test-eqvygm0jjozl0p7w.mlsender.net", "Datavue");
+        helper.setTo(recipientEmail);
+
+        String subject = "Kids, do not try this at home!";
+
+        String content = "<p>Hello,</p>"
+                + "<p>You have requested to reset your password.</p>"
+                + "<p>Click the link below to change your password:</p>"
+                + "<p><a href=\"" + link + "\">Change my password</a></p>"
+                + "<br>"
+                + "<p>Ignore this email if you do remember your password, "
+                + "or you have not made the request.</p>";
+
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
+    }
+
+    @Override
+    public void processForgotPassword(String email) throws MessagingException, UnsupportedEncodingException, jakarta.mail.MessagingException {
+        User user = repository.findUserByEmail(email);
+        String token = RandomStringUtils.randomAlphanumeric(30);
+        user.setResetPasswordToken(token);
+        repository.save(user);
+        String resetPasswordLink = "http://localhost:5173/resetPassword/" + token;
+        sendEmail(email, resetPasswordLink);
+    }
+
+    @Override
+    @Transactional
+    public void processResetPassword(String token, String password) {
+        User user = repository.findUserByResetPasswordToken(token);
+        user.setUserPassword(passwordEncoder.encode(password));
+        user.setResetPasswordToken(null);
+        repository.save(user);
     }
 
 }
