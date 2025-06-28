@@ -18,7 +18,9 @@ public interface VisualizationMapper {
             @SubclassMapping(source = AreaChartCreateDto.class, target = AreaChartVisualization.class),
             @SubclassMapping(source = RaceChartCreateDto.class, target = RaceChartVisualization.class),
             @SubclassMapping(source = ElectionResultCreateDto.class, target = ElectionResultVisualization.class),
-            @SubclassMapping(source = ElectionDonutCreateDto.class, target = ElectionDonutVisualization.class)
+            @SubclassMapping(source = ElectionDonutCreateDto.class, target = ElectionDonutVisualization.class),
+            @SubclassMapping(source = EuropeFilterCreateDto.class, target = EuropeFilterVisualization.class),
+            @SubclassMapping(source = AfricaFilterCreateDto.class, target = AfricaFilterVisualization.class)
 
     })
     @Mapping(target = "isShared", constant = "false")
@@ -34,7 +36,9 @@ public interface VisualizationMapper {
             @SubclassMapping(source = AreaChartVisualization.class, target = AreaChartViewDto.class),
             @SubclassMapping(source = RaceChartVisualization.class, target = RaceChartViewDto.class),
             @SubclassMapping(source = ElectionResultVisualization.class, target = ElectionResultViewDto.class),
-            @SubclassMapping(source = ElectionDonutVisualization.class, target = ElectionDonutViewDto.class)
+            @SubclassMapping(source = ElectionDonutVisualization.class, target = ElectionDonutViewDto.class),
+            @SubclassMapping(source = EuropeFilterVisualization.class, target = EuropeFilterViewDto.class),
+            @SubclassMapping(source = AfricaFilterVisualization.class, target = AfricaFilterViewDto.class)
 
     })
     @Mapping(source = "visualizationModel", target = "visualizationModelReducedViewDto")

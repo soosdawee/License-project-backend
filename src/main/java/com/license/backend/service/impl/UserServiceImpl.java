@@ -14,6 +14,7 @@ import com.license.backend.service.UserService;
 import com.license.backend.util.ContextUtil;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -55,6 +56,9 @@ public class UserServiceImpl implements UserService {
     private final TokenProvider tokenProvider;
 
     private final JavaMailSender mailSender;
+
+    @Value("${spring.mail.username}")
+    private String mailUsername;
 
     @Override
     @Transactional
@@ -173,7 +177,7 @@ public class UserServiceImpl implements UserService {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
-        helper.setFrom("MS_1GSDA2@test-eqvygm0jjozl0p7w.mlsender.net", "Datavue");
+        helper.setFrom(mailUsername, "Datavue");
         helper.setTo(recipientEmail);
 
         String subject = "Kids, do not try this at home!";
