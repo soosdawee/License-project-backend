@@ -10,7 +10,10 @@ public enum VisualizationTypes {
     ELECTION_RESULT,
     ELECTION_DONUT,
     EUROPE_FILTER,
-    AFRICA_FILTER;
+    AFRICA_FILTER,
+    ASIA_FILTER,
+    NORTH_AMERICA_FILTER,
+    SOUTH_AMERICA_FILTER;
 
     public static final String BAR_CHART_NAME = "BAR_CHART";
     public static final String PIE_CHART_NAME = "PIE_CHART";
@@ -22,5 +25,8 @@ public enum VisualizationTypes {
     public static final String ELECTION_DONUT_NAME = "ELECTION_DONUT";
     public static final String EUROPE_FILTER_NAME = "EUROPE_FILTER";
     public static final String AFRICA_FILTER_NAME = "AFRICA_FILTER";
+    public static final String ASIA_FILTER_NAME = "ASIA_FILTER";
+    public static final String NORTH_AMERICA_FILTER_NAME = "NORTH_AMERICA_FILTER";
+    public static final String SOUTH_AMERICA_FILTER_NAME = "SOUTH_AMERICA_FILTER";
 
 }

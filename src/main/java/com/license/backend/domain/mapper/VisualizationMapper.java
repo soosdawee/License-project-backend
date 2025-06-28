@@ -20,7 +20,10 @@ public interface VisualizationMapper {
             @SubclassMapping(source = ElectionResultCreateDto.class, target = ElectionResultVisualization.class),
             @SubclassMapping(source = ElectionDonutCreateDto.class, target = ElectionDonutVisualization.class),
             @SubclassMapping(source = EuropeFilterCreateDto.class, target = EuropeFilterVisualization.class),
-            @SubclassMapping(source = AfricaFilterCreateDto.class, target = AfricaFilterVisualization.class)
+            @SubclassMapping(source = AfricaFilterCreateDto.class, target = AfricaFilterVisualization.class),
+            @SubclassMapping(source = AsiaFilterCreateDto.class, target = AsiaFilterVisualization.class),
+            @SubclassMapping(source = NorthAmericaFilterCreateDto.class, target = NorthAmericaFilterVisualization.class),
+            @SubclassMapping(source = SouthAmericaFilterCreateDto.class, target = SouthAmericaFilterVisualization.class)
 
     })
     @Mapping(target = "isShared", constant = "false")
@@ -38,7 +41,10 @@ public interface VisualizationMapper {
             @SubclassMapping(source = ElectionResultVisualization.class, target = ElectionResultViewDto.class),
             @SubclassMapping(source = ElectionDonutVisualization.class, target = ElectionDonutViewDto.class),
             @SubclassMapping(source = EuropeFilterVisualization.class, target = EuropeFilterViewDto.class),
-            @SubclassMapping(source = AfricaFilterVisualization.class, target = AfricaFilterViewDto.class)
+            @SubclassMapping(source = AfricaFilterVisualization.class, target = AfricaFilterViewDto.class),
+            @SubclassMapping(source = AsiaFilterVisualization.class, target = AsiaFilterViewDto.class),
+            @SubclassMapping(source = NorthAmericaFilterVisualization.class, target = NorthAmericaFilterViewDto.class),
+            @SubclassMapping(source = SouthAmericaFilterVisualization.class, target = SouthAmericaFilterViewDto.class)
 
     })
     @Mapping(source = "visualizationModel", target = "visualizationModelReducedViewDto")

@@ -58,6 +58,8 @@ public abstract class VisualizationViewDto {
 
     private Boolean isPublished;
 
+    private String vizType;
+
     private VisualizationModelReducedViewDto visualizationModelReducedViewDto;
 
     private List<TableData> tableDatas;

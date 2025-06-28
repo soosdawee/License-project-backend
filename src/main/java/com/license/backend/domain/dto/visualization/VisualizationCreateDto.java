@@ -28,6 +28,9 @@ import java.util.List;
         @JsonSubTypes.Type(value = ElectionDonutCreateDto.class, name = VisualizationTypes.ELECTION_DONUT_NAME),
         @JsonSubTypes.Type(value = EuropeFilterCreateDto.class, name = VisualizationTypes.EUROPE_FILTER_NAME),
         @JsonSubTypes.Type(value = AfricaFilterCreateDto.class, name = VisualizationTypes.AFRICA_FILTER_NAME),
+        @JsonSubTypes.Type(value = AsiaFilterCreateDto.class, name = VisualizationTypes.ASIA_FILTER_NAME),
+        @JsonSubTypes.Type(value = NorthAmericaFilterCreateDto.class, name = VisualizationTypes.NORTH_AMERICA_FILTER_NAME),
+        @JsonSubTypes.Type(value = SouthAmericaFilterCreateDto.class, name = VisualizationTypes.SOUTH_AMERICA_FILTER_NAME),
 })
 @Getter
 public abstract class VisualizationCreateDto {
