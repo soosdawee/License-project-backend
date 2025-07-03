@@ -13,7 +13,12 @@ public enum VisualizationTypes {
     AFRICA_FILTER,
     ASIA_FILTER,
     NORTH_AMERICA_FILTER,
-    SOUTH_AMERICA_FILTER;
+    SOUTH_AMERICA_FILTER,
+    EUROPE_BUBBLE,
+    AFRICA_BUBBLE,
+    ASIA_BUBBLE,
+    NORTH_AMERICA_BUBBLE,
+    SOUTH_AMERICA_BUBBLE;
 
     public static final String BAR_CHART_NAME = "BAR_CHART";
     public static final String PIE_CHART_NAME = "PIE_CHART";
@@ -28,5 +33,10 @@ public enum VisualizationTypes {
     public static final String ASIA_FILTER_NAME = "ASIA_FILTER";
     public static final String NORTH_AMERICA_FILTER_NAME = "NORTH_AMERICA_FILTER";
     public static final String SOUTH_AMERICA_FILTER_NAME = "SOUTH_AMERICA_FILTER";
+    public static final String EUROPE_BUBBLE_NAME = "EUROPE_BUBBLE";
+    public static final String AFRICA_BUBBLE_NAME = "AFRICA_BUBBLE";
+    public static final String ASIA_BUBBLE_NAME = "ASIA_BUBBLE";
+    public static final String NORTH_AMERICA_BUBBLE_NAME = "NORTH_AMERICA_BUBBLE";
+    public static final String SOUTH_AMERICA_BUBBLE_NAME = "SOUTH_AMERICA_BUBBLE";
 
 }

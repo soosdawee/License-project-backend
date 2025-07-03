@@ -31,6 +31,11 @@ import java.util.List;
         @JsonSubTypes.Type(value = AsiaFilterCreateDto.class, name = VisualizationTypes.ASIA_FILTER_NAME),
         @JsonSubTypes.Type(value = NorthAmericaFilterCreateDto.class, name = VisualizationTypes.NORTH_AMERICA_FILTER_NAME),
         @JsonSubTypes.Type(value = SouthAmericaFilterCreateDto.class, name = VisualizationTypes.SOUTH_AMERICA_FILTER_NAME),
+        @JsonSubTypes.Type(value = EuropeBubbleCreateDto.class, name = VisualizationTypes.EUROPE_BUBBLE_NAME),
+        @JsonSubTypes.Type(value = AsiaBubbleCreateDto.class, name = VisualizationTypes.ASIA_BUBBLE_NAME),
+        @JsonSubTypes.Type(value = AfricaBubbleCreateDto.class, name = VisualizationTypes.AFRICA_BUBBLE_NAME),
+        @JsonSubTypes.Type(value = NorthAmericaBubbleCreateDto.class, name = VisualizationTypes.NORTH_AMERICA_BUBBLE_NAME),
+        @JsonSubTypes.Type(value = SouthAmericaBubbleCreateDto.class, name = VisualizationTypes.SOUTH_AMERICA_BUBBLE_NAME),
 })
 @Getter
 public abstract class VisualizationCreateDto {

@@ -23,8 +23,12 @@ public interface VisualizationMapper {
             @SubclassMapping(source = AfricaFilterCreateDto.class, target = AfricaFilterVisualization.class),
             @SubclassMapping(source = AsiaFilterCreateDto.class, target = AsiaFilterVisualization.class),
             @SubclassMapping(source = NorthAmericaFilterCreateDto.class, target = NorthAmericaFilterVisualization.class),
-            @SubclassMapping(source = SouthAmericaFilterCreateDto.class, target = SouthAmericaFilterVisualization.class)
-
+            @SubclassMapping(source = SouthAmericaFilterCreateDto.class, target = SouthAmericaFilterVisualization.class),
+            @SubclassMapping(source = EuropeBubbleCreateDto.class, target = EuropeBubbleVisualization.class),
+            @SubclassMapping(source = AsiaBubbleCreateDto.class, target = AsiaBubbleVisualization.class),
+            @SubclassMapping(source = AfricaBubbleCreateDto.class, target = AfricaBubbleVisualization.class),
+            @SubclassMapping(source = NorthAmericaBubbleCreateDto.class, target = NorthAmericaBubbleVisualization.class),
+            @SubclassMapping(source = SouthAmericaBubbleCreateDto.class, target = SouthAmericaBubbleVisualization.class)
     })
     @Mapping(target = "isShared", constant = "false")
     @Mapping(target = "isReported", constant = "false")
@@ -44,8 +48,12 @@ public interface VisualizationMapper {
             @SubclassMapping(source = AfricaFilterVisualization.class, target = AfricaFilterViewDto.class),
             @SubclassMapping(source = AsiaFilterVisualization.class, target = AsiaFilterViewDto.class),
             @SubclassMapping(source = NorthAmericaFilterVisualization.class, target = NorthAmericaFilterViewDto.class),
-            @SubclassMapping(source = SouthAmericaFilterVisualization.class, target = SouthAmericaFilterViewDto.class)
-
+            @SubclassMapping(source = SouthAmericaFilterVisualization.class, target = SouthAmericaFilterViewDto.class),
+            @SubclassMapping(source = EuropeBubbleVisualization.class, target = EuropeBubbleViewDto.class),
+            @SubclassMapping(source = AsiaBubbleVisualization.class, target = AsiaBubbleViewDto.class),
+            @SubclassMapping(source = AfricaBubbleVisualization.class, target = AfricaBubbleViewDto.class),
+            @SubclassMapping(source = NorthAmericaBubbleVisualization.class, target = NorthAmericaBubbleViewDto.class),
+            @SubclassMapping(source = SouthAmericaBubbleVisualization.class, target = SouthAmericaBubbleViewDto.class)
     })
     @Mapping(source = "visualizationModel", target = "visualizationModelReducedViewDto")
     VisualizationViewDto toViewDto(Visualization visualization);

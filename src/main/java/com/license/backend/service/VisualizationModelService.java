@@ -18,4 +18,6 @@ public interface VisualizationModelService {
 
     VisualizationModelViewDto update(Integer visualizationModelId, Map<String, Object> fields);
 
+    void delete(Integer visualizationModelId);
+
 }

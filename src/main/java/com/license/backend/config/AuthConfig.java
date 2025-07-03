@@ -52,6 +52,7 @@ public class AuthConfig {
                         .requestMatchers(HttpMethod.GET, "/visualization/all").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/visualization_model").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.PATCH, "/visualization_model/*").hasAuthority(Roles.ADMIN.getAuthority())
+                        .requestMatchers(HttpMethod.DELETE, "/visualization_model/*").hasAuthority(Roles.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.GET, "/visualization/reported").hasAuthority(Roles.FACTCHECKER.getAuthority())
                         .requestMatchers(HttpMethod.PUT, "/visualization/unreport/*").hasAuthority(Roles.FACTCHECKER.getAuthority())
                         .requestMatchers(HttpMethod.PUT, "/visualization/review_negatively/*").hasAuthority(Roles.FACTCHECKER.getAuthority())

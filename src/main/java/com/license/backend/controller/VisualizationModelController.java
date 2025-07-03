@@ -48,4 +48,11 @@ public class VisualizationModelController {
         return service.update(visualizationModelId, fields);
     }
 
+    @DeleteMapping("{visualizationModelId}")
+    @SecurityRequirement(name = "bearerAuth")
+    public void deleteVisualizationModel(@PathVariable Integer visualizationModelId) {
+        service.delete(visualizationModelId);
+    }
+
+
 }

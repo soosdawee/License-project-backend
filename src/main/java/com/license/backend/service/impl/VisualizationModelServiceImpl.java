@@ -73,4 +73,9 @@ public class VisualizationModelServiceImpl implements VisualizationModelService 
         return mapper.toViewDto(repository.save(visualizationModel.get()));
     }
 
+    @Override
+    public void delete(Integer visualizationModelId) {
+        repository.deleteById(visualizationModelId);
+    }
+
 }
