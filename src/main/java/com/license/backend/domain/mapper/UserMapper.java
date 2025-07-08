@@ -22,6 +22,8 @@ public interface UserMapper {
 
     List<UserViewDto> toViewDtos(List<User> users);
 
+    UserViewDto toViewDto(User user);
+
     UserProfileViewDto toProfileViewDto(User user);
 
 }

@@ -21,4 +21,10 @@ public class RestExceptionHandler {
         return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(DataMismatchException.class)
+    public ResponseEntity<?> handleDataMismatchException(DataMismatchException dataMismatchException) {
+        RestExceptionDetails exceptionDetails = RestExceptionDetails.of(HttpStatus.BAD_REQUEST, dataMismatchException);
+        return new ResponseEntity<>(exceptionDetails, HttpStatus.BAD_REQUEST);
+    }
+
 }

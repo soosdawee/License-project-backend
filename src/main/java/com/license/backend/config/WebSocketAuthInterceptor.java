@@ -33,7 +33,7 @@ public class WebSocketAuthInterceptor implements ChannelInterceptor {
             String authToken = accessor.getFirstNativeHeader("Authorization");
 
             if (authToken != null && authToken.startsWith("Bearer ")) {
-                String token = authToken.substring(7); // Remove "Bearer " prefix
+                String token = authToken.substring(7);
 
                 try {
                     Integer userId = Integer.parseInt(tokenProvider.validateToken(token));

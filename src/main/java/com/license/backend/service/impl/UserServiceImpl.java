@@ -7,6 +7,7 @@ import com.license.backend.domain.mapper.UserMapper;
 import com.license.backend.domain.mapper.VisualizationMapper;
 import com.license.backend.domain.model.User;
 import com.license.backend.domain.model.Visualization;
+import com.license.backend.exception.DataMismatchException;
 import com.license.backend.exception.FailedLoginException;
 import com.license.backend.repository.UserRepository;
 import com.license.backend.repository.VisualizationRepository;
@@ -155,7 +156,7 @@ public class UserServiceImpl implements UserService {
             user.setUserPassword(passwordEncoder.encode(updateDto.getNewPassword()));
             repository.save(user);
         } else {
-            System.out.println("Password mismatch exception placeholder");
+            throw new DataMismatchException("Incorrect old password given!");
         }
     }
 

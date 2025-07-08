@@ -4,11 +4,13 @@ import com.license.backend.domain.constant.Roles;
 import com.license.backend.domain.dto.visualization.VisualizationReducedViewDto;
 import com.license.backend.domain.dto.visualization.VisualizationViewDto;
 import com.license.backend.domain.model.Visualization;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Set;
 
 @Data
+@Builder
 public class UserViewDto {
 
     private Integer userId;
