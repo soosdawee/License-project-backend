@@ -14,4 +14,6 @@ public class FriendRequestViewDto {
 
     String lastname;
 
+    byte[] profilePicture;
+
 }

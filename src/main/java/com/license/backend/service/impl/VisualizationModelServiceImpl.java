@@ -40,7 +40,7 @@ public class VisualizationModelServiceImpl implements VisualizationModelService 
         try {
             visualizationModel.setCardPhoto(file.getBytes());
         } catch (IOException e) {
-            System.out.println("Card photo upload problem placeholder!");
+            System.out.println("Photo not found1");
         }
         return mapper.toViewDto(repository.save(visualizationModel));
     }

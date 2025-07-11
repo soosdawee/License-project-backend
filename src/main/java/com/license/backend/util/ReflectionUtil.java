@@ -7,13 +7,13 @@ import java.util.Map;
 public class ReflectionUtil {
 
     public static void copyFields(Object source, Object target) {
-        Map<String, Field> sourceFields = getAllFields(source.getClass());
-        Map<String, Field> targetFields = getAllFields(target.getClass());
+        Map<String, Field> starting = getAllFields(source.getClass());
+        Map<String, Field> ending = getAllFields(target.getClass());
 
-        for (Map.Entry<String, Field> entry : sourceFields.entrySet()) {
+        for (Map.Entry<String, Field> entry : starting.entrySet()) {
             String fieldName = entry.getKey();
             Field sourceField = entry.getValue();
-            Field targetField = targetFields.get(fieldName);
+            Field targetField = ending.get(fieldName);
 
             if (targetField != null) {
                 try {

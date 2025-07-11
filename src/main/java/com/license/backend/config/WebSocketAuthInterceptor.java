@@ -46,13 +46,13 @@ public class WebSocketAuthInterceptor implements ChannelInterceptor {
                         SecurityContextHolder.getContext().setAuthentication(authentication);
                         accessor.setUser(authentication);
                     } else {
-                        throw new RuntimeException("User not found");
+                        throw new RuntimeException("User not found in repository!");
                     }
                 } catch (Exception e) {
-                    throw new RuntimeException("Invalid token");
+                    throw new RuntimeException("Token not good!");
                 }
             } else {
-                throw new RuntimeException("Missing or invalid Authorization header");
+                throw new RuntimeException("Header problem!");
             }
         }
 

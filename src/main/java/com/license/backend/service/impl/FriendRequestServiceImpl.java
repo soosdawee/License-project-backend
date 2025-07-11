@@ -101,7 +101,8 @@ public class FriendRequestServiceImpl implements FriendRequestService {
                 .map(req -> new FriendRequestViewDto(
                         req.getId(),
                         req.getSender().getFirstname(),
-                        req.getSender().getLastname()
+                        req.getSender().getLastname(),
+                        req.getSender().getProfilePicture()
                 ))
                 .collect(Collectors.toList());
     }

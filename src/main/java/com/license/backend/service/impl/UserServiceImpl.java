@@ -14,6 +14,7 @@ import com.license.backend.repository.VisualizationRepository;
 import com.license.backend.service.UserService;
 import com.license.backend.util.ContextUtil;
 import jakarta.mail.internet.MimeMessage;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import lombok.extern.slf4j.Slf4j;
@@ -118,8 +119,7 @@ public class UserServiceImpl implements UserService {
         if (user.isPresent()) {
             return mapper.toProfileViewDto(user.get());
         } else {
-            System.out.println("No user with this id exception placeholder!");
-            return null;
+            throw new EntityNotFoundException("User not found!");
         }
     }
 
