@@ -204,7 +204,7 @@ public class UserServiceImpl implements UserService {
         String token = RandomStringUtils.randomAlphanumeric(30);
         user.setResetPasswordToken(token);
         repository.save(user);
-        String resetPasswordLink = "http://localhost:5173/resetPassword/" + token;
+        String resetPasswordLink = "http://localhost:3000/reset-password/" + token;
         sendEmail(email, resetPasswordLink);
     }
 
